@@ -4,7 +4,7 @@ const {connectionDB} = require("./mongoDb/connection")
 const app = express();
 
 app.use(express.json());
-const noteRouter = require("./routes/note.route");
+const noteRouter = require("./routes/noteRoute");
 
 // connecting to the mongoDB(Database)
 

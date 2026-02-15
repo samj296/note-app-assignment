@@ -1,0 +1,1 @@
+initially I created all my logic (get, put, post...) inside the route file, and I thought that is the proper way but later on learned thats not the proper MVC format.
