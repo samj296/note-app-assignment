@@ -1,21 +1,27 @@
-require("dotenv").config();
 const express = require("express");
-const {connectionDB} = require("./mongoDb/connection")
+const mongoose = require("mongoose");
 const app = express();
-
+const noteRoutes = require("./routes/noteRoute");
 app.use(express.json());
-const noteRouter = require("./routes/noteRoute");
 
-// connecting to the mongoDB(Database)
+const PORT = process.env.port;
 
-connectionDB();
+const MONGODB_URI = process.env.MONGODB_URI;
 
 //Routes
+app.use("/notes", noteRoutes);
 
-app.use("/api/note", noteRouter);
+//MongoDB connection (the server will run only after the sucessful connection to the MongoDB)
+mongoose
+    .connect(MONGODB_URI)
+    .then(() => {
+        console.log("Connected to MongoDB");
 
-const PORT = process.env.PORT ?? 3000;
+        app.listen(PORT, () => {
+            console.log(`App is running on http://localhost:${PORT}`);
+        });
+    })
 
-app.listen(PORT, () =>{
-    console.log(`App is running on the http://localhost:${PORT}`);
-});
+    .catch((err) => {
+        console.log("Mongo connection error ", err);
+    })
