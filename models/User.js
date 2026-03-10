@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Role = ["Staff", "User", "Admin"]
-const DefaultRole = Role[0]; // Staff
+const DefaultRole = Role[1]; // User
 
 const userSchema = new mongoose.Schema(
     {
@@ -26,3 +26,5 @@ const userSchema = new mongoose.Schema(
     },
     {timestamps: true}
 );
+
+module.exports = mongoose.model("User", userSchema)
