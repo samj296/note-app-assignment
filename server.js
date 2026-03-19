@@ -3,16 +3,29 @@ const express = require("express");
 const mongoose = require("mongoose");
 const User = require("./models/User");
 const bcrypt = require("bcrypt");
+const session = require("express-session");
+const passport = require("./auth/passport");
+const ensureLoggedIn = require("./middleware/ensureLoggedIn");
+const errorHandler = require("./middleware/errorHandler");
+const path = require("path");
 
 //importing all the routes here
 const noteRoute = require("./routes/noteRoute");
-const staffRoute = require("./routes/staffRoute");
-
+const userRoute = require("./routes/userRoute");
+const bookRoute = require("./routes/bookRoute")
 
 const app = express();
 
+app.use((req, res, next) => {
+    next();
+});
 
-const PORT = process.env.port;
+
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+
+
+const PORT = process.env.PORT;
 const MONGODB_URI = process.env.MONGODB_URI;
 
 //using middleware here
@@ -21,32 +34,31 @@ app.use(express.json());
 //imp middleware read in the data as form submission which is what passprt expects
 app.use(express.urlencoded({extended: false}))
 
+app.use(
+    session({
+        secret: process.env.Session_Secret || "dev_secret_change_me",
+        resave: false,
+        saveUninitialized: false
+    })
+)
+
+//after all the middleware we will use the passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
+
 //note routes
 app.use("/notes", noteRoute);
-//staff routes
-app.use("/staffs", staffRoute)
 
-//signup routes I will move it to controller later and will create a routes that time
-app.post("/signup", async (req, res) => {
-    const {username, password} = req.body;
+//user routes
+app.use("/users", userRoute);
+app.use("/books", bookRoute);
 
-    if(!username || !password){
-        return res.status(400).send("missing username or password")
-    }
 
-    // bycrypt: hash password immediately
-    const passwordHash = await bcrypt.hash(password, 10); 
-
-    try{
-        await User.create({username, passwordHash});
-        return res.send({message: "You are signed up", username})
-        // res.redirect("/login");
-    }catch(err){
-        console.log("Signup error", err)
-        return res.status(400).send("Unable to signup, check username and password");
-    };
-});
-
+//error handler
+// app.use(errorHandler);
 
 //------end of middleware----------
 
@@ -63,4 +75,3 @@ mongoose
         console.log("Mongo connection error ", err);
     });
         
-    

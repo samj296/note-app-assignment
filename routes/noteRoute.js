@@ -1,20 +1,21 @@
 const express = require("express")
 const router = express.Router();
 const noteController = require("../controllers/noteController");
+const ensureLoggedIn = require("../middleware/ensureLoggedIn");
 
 //All notes
-router.get("/", noteController.getAllNotes);
+router.get("/", ensureLoggedIn, noteController.getAllNotes);
 
 //One note by ID
-router.get("/:id", noteController.getNoteById);
+router.get("/:id", ensureLoggedIn, noteController.getNoteById);
 
 // edit note
-router.put("/:id", noteController.updateNote);
+router.put("/:id", ensureLoggedIn, noteController.updateNote);
 
 // add note
-router.post("/", noteController.createNote)
+router.post("/", ensureLoggedIn, noteController.createNote)
 
 // delete note
-router.delete("/:id", noteController.deleteNote)
+router.delete("/:id", ensureLoggedIn, noteController.deleteNote)
 
 module.exports = router;

@@ -1,10 +1,10 @@
 exports.getAllNotes = (req, res) => {
-    res.json({message: "retreving all notes"});
+    res.json({message: "retrieving all notes"});
 };
 
 exports.getNoteById = (req, res) => {
     res.status(200).json({
-        message: `retreving note by id ${req.params.id}`
+        message: `retrieving note by id ${req.params.id}`
     });
 };
 
