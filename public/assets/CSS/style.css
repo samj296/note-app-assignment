@@ -1,0 +1,30 @@
+body{
+    background-color: black;
+    color: white;
+}
+.logo{
+    width: 100px;
+    right: 20px;
+    padding-left: 10%;
+}
+
+
+
+.header, .tag-line{
+    clear: both;
+    color: #8034b2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    
+}
+
+.login-form{
+    clear: both;
+    text-align: center;
+}
+
+#username, #password, #login-btn, #signup-btn, #reset-btn{
+    margin: 5px;
+}
