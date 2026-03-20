@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const Book = require("../models/Book");
 const Note = require("../models/Note");
+const bcrypt = require("bcrypt");
 
 exports.getAllUser = (req, res) => {
     res.json({
@@ -40,6 +41,13 @@ exports.createUser = async (req, res) => {
         return res.status(400).send("Unable to signup, check username and password");
     };
 };
+
+
+exports.getSignupPage = (req, res) => {
+    res.render("signup");
+};
+
+
 
 exports.deleteUser =async(req, res) => {
     try{

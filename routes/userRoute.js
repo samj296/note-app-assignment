@@ -5,6 +5,9 @@ const passport = require("../auth/passport");
 const ensureLoggedIn = require("../middleware/ensureLoggedIn");
 
 //------------------ unprotected route ----------------------
+
+// rendering the signup page
+router.get("/signup", usercontroller.getSignupPage);
 // adding user
 router.post("/signup", usercontroller.createUser);
 

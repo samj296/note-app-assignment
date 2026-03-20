@@ -1,19 +1,20 @@
 
        <%- include("partials/header", {
-            title: "login - TwoNote"
+            title: "login - TwoNote",
+            page: "Login Page"
        }) %>
-            <form action = "http://localhost:3000/users/login" method = "post" class = "login-form">
-                <input id = "username" type = "text" placeholder = "Username" name = "username">
+            <form action = "/users/login" method = "post" class = "login-form">
+                <input id = "login-username" class = "username-input" type = "text" placeholder = "Username" name = "username" required>
                 <br>
-                <input id = "password" type = "password" placeholder = "Password" name = "password"> 
+                <input id = "login-password" class = "password-input" type = "password" placeholder = "Password" name = "password" required> 
                 <br>
-                <button id = "login-btn" type = "submit">Login</button>
-                <button id = "signup-btn" type = "button">Signup</button>
-                <button id = "reset-btn" type = "reset">Reset</button>
+                <button class = "btn" type = "submit" data-action = "login">Login</button>
+                <button id = "signup-btn" class = "btn" type = "button" data-action = "signup">Signup</button>
+                <button class = "btn" type = "reset" data-action = "reset">Reset</button>
             </form>
        
        
-        <script type = "module" src = "/assets/script/function.js"></script>
+        <script type = "module" src = "/script/function.js"></script>
     </body>
 </html>
 
