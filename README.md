@@ -2,11 +2,18 @@ Initially I was planning to have a staff and admin, that concept was for library
 **I realized that I don't need staff or admin for this app every user can create an account and can delete there own account**
 
 
+//This is for the README.md
+// using eventdelegation for the first time 
+// I will use one event listener that will 
+// check for the which button is clicked
+// according to my research this won't slow down
+// no matter how many books and books button are there 
+
 
 # End point:
 
 ## Users:
-1) *Get* /users -list of all user
+1) *Get* /users -list of all user (deprecated - this concept is not suitable for this app every user can check there own profile)
 2) *Get* /user/:id -get single user by ID
 3) *Put* /user/:id -edit user
 4) *Post* /user -add user

@@ -3,13 +3,13 @@ const router = express.Router();
 const noteController = require("../controllers/noteController");
 const ensureLoggedIn = require("../middleware/ensureLoggedIn");
 
-//All notes
+//All notes for specific book
 router.get("/", ensureLoggedIn, noteController.getAllNotes);
 
 //One note by ID
 router.get("/:id", ensureLoggedIn, noteController.getNoteById);
 
-// edit note
+// update note
 router.put("/:id", ensureLoggedIn, noteController.updateNote);
 
 // add note

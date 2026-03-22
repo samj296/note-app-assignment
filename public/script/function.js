@@ -1,3 +1,5 @@
+// This file is for login and signup page only
+
 const signUpbtn = document.getElementById("signup-btn");
 if(signUpbtn){
     signUpbtn.addEventListener("click", renderSignUp);
