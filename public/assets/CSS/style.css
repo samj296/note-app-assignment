@@ -2,22 +2,25 @@ body{
     background-color: black;
     color: white;
 }
+
 .logo{
     width: 100px;
-    right: 20px;
-    padding-left: 10%;
+    height: auto;
 }
 
+.main-header{
+    background-color: #8034b2;
+    color: #2E2E2E;
+}
 
+.tag-line, .page-title{
+    text-align: center;
+}
 
-.header, .tag-line{
-    clear: both;
-    color: #8034b2;
+.header-top{
     display: flex;
     align-items: center;
-    justify-content: center;
-    position: relative;
-    
+    justify-content: space-around;
 }
 
 .login-form{
@@ -27,9 +30,4 @@ body{
 
 .username-input, .password-input, .btn{
     margin: 5px;
-}
-
-.btn{
-    background-color: #a86dd9;
-    color: #C0C0C0
 }

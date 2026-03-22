@@ -1,0 +1,29 @@
+        <%- include("partials/header", {
+            title: "Home - TwoNote",
+            page: `Welcome ${username}`
+       }) %>
+
+            <div id = "book-div">
+                <p>📚 Books</p>
+                <div>
+                    <input>
+                    <button class = "btn btn btn-outline-light">Add Book</button>
+                </div>
+                <ul>
+                    
+                    <%  books.forEach(book => { %>
+                        <li>
+                            📖<button class = "btn btn-outline-dark" type = "button" 
+                            data-id = "<%= book.id %>"> <%= book.title %> </button>
+                        </li>
+                    <% }); %>
+                </ul>
+                
+            </div>
+            <div id = "note-span">
+                <P> Select the book to view notes</P>
+            </div>
+
+            <script src = "/script/homepageScript.js"></script>
+       </body>
+    </html>

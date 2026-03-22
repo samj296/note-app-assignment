@@ -3,6 +3,8 @@ const Book = require("../models/Book");
 const Note = require("../models/Note");
 const bcrypt = require("bcrypt");
 
+// I don't think I will need this endpoint for my app
+// As no one is allowed to check or pull other users detail
 exports.getAllUser = (req, res) => {
     res.json({
         message: "retrieving all user"
@@ -71,11 +73,6 @@ exports.deleteUser =async(req, res) => {
         res.status(500).send("Error deleting account")
     };
 };
-
-// exports.login = (req, res) => {
-//     console.log("LOGIN ROUTE HIT");
-//     res.send("<h1>Login Page Test</h1>");
-// };
 
 
 exports.login = (req, res) => {

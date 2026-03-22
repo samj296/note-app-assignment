@@ -4,7 +4,6 @@ const Note = require("../models/Note");
 exports.getAllBooks = async(req, res) => {
     try{
         const books = await Book.find({user: req.user._id})
-            .populate("notes")
             .sort({createdAt: -1});
             res.json(books);
     }catch(err){
@@ -13,8 +12,14 @@ exports.getAllBooks = async(req, res) => {
     };
 };
 
-exports.getBookById = (req, res) => {
-    res.json({message: `retrieving book by id ${req.params.id}`})
+exports.getBookById = async (req, res) => {
+    try{
+        const book = await Book.findOne({ _id: req.params.id,user: req.user.id})
+        res.json(book)
+    }catch(err){
+        console.log("error fetching book", err);
+        res.status(500).send("error fetching book");
+    }
 };
 
 exports.addBook =async (req, res) => {
@@ -59,7 +64,7 @@ exports.deleteBookById = async(req, res) => {
         });
 
         //Delete the book
-        await Book.findByIdandDelete(book._id);
+        await Book.findByIdAndDelete(book._id);
         res.json({
             message: "Book and all its notes deleted"
         });

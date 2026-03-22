@@ -1,3 +1,8 @@
+Initially I was planning to have a staff and admin, that concept was for library app and i was trying to copy all the logic without using my brain then
+**I realized that I don't need staff or admin for this app every user can create an account and can delete there own account**
+
+
+
 # End point:
 
 ## Users:
@@ -41,7 +46,6 @@
 5) *Delete* /note/:id -delete note
 
 
-**I realized that I don't need staff or admin for this app every user can create an account and can delete there own account**
 
 
 
