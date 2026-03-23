@@ -25,7 +25,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI;
 
 //using middleware here
@@ -58,7 +58,7 @@ app.use("/books", bookRoute);
 
 
 //error handler
-// app.use(errorHandler);
+app.use(errorHandler);
 
 //------end of middleware----------
 
