@@ -1,20 +1,42 @@
+function createNoteButton(noteDiv){
+    const createNote = document.createElement("Button");
+    createNote.classList.add("btn", "btn-outline-dark");
+    createNote.dataset.id = "create-note";
+    createNote.innerText = "New note";
+
+    noteDiv.appendChild(createNote);
+};
+
+function createNoteHeader(){
+    const titleDiv = document.createElement("div");
+    const  titleInput = document.createElement("input");
+    titleInput.classList.add("note-title");
+    titleInput.id = "note-title-input"
+
+    return {titleDiv, titleInput}
+};
+
+function createNoteBody(){
+    const bodyDiv = document.createElement("div");
+    const bodyTextArea = document.createElement("textarea");
+    bodyTextArea.classList.add("note-body-text");
+    bodyTextArea.id = "note-body-text-area"
+
+    return {bodyDiv, bodyTextArea}
+}
+
 
 async function renderNoteTitle(notes, noteDiv){
     
     noteDiv.innerHTML = ""; // clearing the p tag or other notes
 
-    const createNote = document.createElement("Button");
-    createNote.classList.add("btn", "btn-outline-dark");
-    createNote.dataset.id = "create-note"
-    createNote.innerText = "New note"
-
-    noteDiv.appendChild(createNote)
+    createNoteButton(noteDiv);    
 
     if(notes.length === 0){
         const messageTag = document.createElement("p");
         messageTag.innerText = "There are no notes in this book";
         noteDiv.appendChild(messageTag);
-        return
+        return;
     };
         
 
@@ -38,21 +60,34 @@ async function renderNoteTitle(notes, noteDiv){
 
 async function renderNoteById(note, noteDiv){
     noteDiv.innerHTML = ""; // clearing all the note titles to prepare for the single note view
-    const titleDiv = document.createElement("div");
-    const  titleInput = document.createElement("input");
-    titleInput.classList.add("note-title");
+    
+    createNoteButton(noteDiv);
+
+    const {titleDiv, titleInput} = createNoteHeader();
+    titleInput.dataset.id = note.id
     titleInput.value = note.title;
 
     titleDiv.appendChild(titleInput);
     noteDiv.appendChild(titleDiv);
 
-    const bodyDiv = document.createElement("div");
-    const bodyTextArea = document.createElement("textarea");
-    bodyTextArea.classList.add("note-body-text");
+    const {bodyDiv, bodyTextArea} = createNoteBody();
     bodyTextArea.value = note.body;
 
     bodyDiv.appendChild(bodyTextArea);
     noteDiv.appendChild(bodyDiv);
 };
 
-export {renderNoteTitle, renderNoteById}
+async function renderNewNote(noteDiv){
+    noteDiv.innerHTML = "";
+    const {titleDiv, titleInput} = createNoteHeader();
+    titleInput.dataset.id = "create-note"
+
+    titleDiv.appendChild(titleInput);
+    noteDiv.appendChild(titleDiv);
+
+    const {bodyDiv, bodyTextArea} = createNoteBody();
+    bodyDiv.appendChild(bodyTextArea);
+    noteDiv.appendChild(bodyDiv);
+}
+
+export {renderNoteTitle, renderNoteById, renderNewNote}
