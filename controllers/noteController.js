@@ -19,7 +19,7 @@ exports.getNoteById = async (req, res) => {
     //Using findOne() to match the criteria while keeping the same route structure.
     try{
         const note = await Note.findOne({user: req.user._id, _id: req.params.id})
-        res.json({note});
+        res.json(note);
     }catch(err){
         console.log("error fetching note ", err);
         res.status(500).send("error fetching notes");
@@ -47,7 +47,7 @@ exports.updateNote = async (req, res) => {
                 body
             },
             {
-                new: true
+                returnDocument: "after"
             }
         );
         if(!updatedNote){
@@ -66,13 +66,16 @@ exports.updateNote = async (req, res) => {
 
 exports.createNote = async (req, res) => {
     try{
-        const {title, body} = req.body;
-        if(!title) return res.status(400).send("Title can't be empty");
-        const newNote = await Note.create({title, body});
-        res.status(201).json(newNote);
+        const {title, body, bookId} = req.body;
+        if(!title) return res.status(400).json({error: "Title can't be empty"});
+        const newNote = await Note.create({title, body, user: req.user._id, book: bookId});
+        res.status(201).json({
+            message: "Note created",
+            note: newNote
+        });
     }catch(err){
         console.log("Error creating notes ", err);
-        res.status(500).send("Error creating note");
+        res.status(500).json({error: "Error creating note"});
     }
 };
 

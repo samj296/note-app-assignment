@@ -14,18 +14,15 @@ router.post("/signup", usercontroller.createUser);
 // login route
 router.post("/login", passport.authenticate("local"), (req, res) => {
     // if we reach here, login was successful
-    // for now just the json responce later I will redirect to home page
-    res.json({
-        message: "Loggeed in successfuly",
-        user: {username: req.user.username}
-    });
+    res.redirect("/users/homepage");
 });
 
 router.get("/login", usercontroller.login)
 
 //-----------------protected route -----------------------
-//get all user list
-router.get("/", ensureLoggedIn, usercontroller.getAllUser);
+
+// rendering the homePage
+router.get("/homepage", ensureLoggedIn,usercontroller.getHomePage);
 
 // get single user by id
 router.get("/:id", ensureLoggedIn, usercontroller.getUserById);

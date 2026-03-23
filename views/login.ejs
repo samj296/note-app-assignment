@@ -3,6 +3,13 @@
             title: "login - TwoNote",
             page: "Login Page"
        }) %>
+
+            <% if(showMessage){ %>
+                <div class = "alert alert-success">
+                    Signup successful! Please log in.
+                </div>
+            <% } %>
+
             <form action = "/users/login" method = "post" class = "login-form">
                 <input id = "login-username" class = "username-input" type = "text" placeholder = "Username" name = "username" required>
                 <br>

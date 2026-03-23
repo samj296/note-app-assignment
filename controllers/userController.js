@@ -3,13 +3,7 @@ const Book = require("../models/Book");
 const Note = require("../models/Note");
 const bcrypt = require("bcrypt");
 
-// I don't think I will need this endpoint for my app
-// As no one is allowed to check or pull other users detail
-exports.getAllUser = (req, res) => {
-    res.json({
-        message: "retrieving all user"
-    });
-};
+
 
 exports.getUserById = (req, res) => {
     res.json({
@@ -36,7 +30,8 @@ exports.createUser = async (req, res) => {
 
     try{
         await User.create({username, passwordHash});
-        return res.send({message: "You are signed up", username})
+        // ? this is a query parameter and below endpoint is with queryparameter
+        return res.redirect("/users/login?signup=success");
         // res.redirect("/login");
     }catch(err){
         console.log("Signup error", err)
@@ -76,5 +71,14 @@ exports.deleteUser =async(req, res) => {
 
 
 exports.login = (req, res) => {
-    res.render("login");
+    const showMessage = req.query.signup === "success";
+    res.render("login", {showMessage});
+};
+
+exports.getHomePage = async(req, res) => {
+    const books = await Book.find({user: req.user._id});
+    res.render("homepage",{
+        username: req.user.username,
+        books
+    });
 };

@@ -2,28 +2,33 @@
             title: "Home - TwoNote",
             page: `Welcome ${username}`
        }) %>
+                <div class = "main-container">
+                    <div id = "book-div">
 
-            <div id = "book-div">
+                        
+                        <div>
+                            <input class = "create-book" id = "book-input">
+                            <button class = "btn btn btn-outline-light" data-id = "create-book">Add Book</button>
+                        </div>
+                        <p>📚 Books</p>
+                        <ul>
+                            
+                            <%  books.forEach(book => { %>
+                                <li>
+                                    <button class = "btn btn-outline-light" type = "button" 
+                                    data-id = "<%= book.id %>">📘 <%= book.name %> </button>
+                                    <button class = "btn btn-outline-light" type = "button" 
+                                    data-id = "<%= book.id %>" data-action = "delete">❌</button>
+                                </li>
+                            <% }); %>
+                        </ul>
+                        
+                    </div>
+                    <div id = "note-div">
+                        <p> Select the book to view notes</p>
+                    </div>
                 
-                <p>📚 Books</p>
-                <div>
-                    <input>
-                    <button class = "btn btn btn-outline-light">Add Book</button>
                 </div>
-                <ul>
-                    
-                    <%  books.forEach(book => { %>
-                        <li>
-                            📖<button class = "btn btn-outline-dark" type = "button" 
-                            data-id = "<%= book.id %>"> <%= book.title %> </button>
-                        </li>
-                    <% }); %>
-                </ul>
-                
-            </div>
-            <div id = "note-div">
-                <p> Select the book to view notes</p>
-            </div>
 
             <script type = "module" src = "/script/homepageScript.js"></script>
        </body>
