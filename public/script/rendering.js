@@ -11,7 +11,7 @@ function createNoteButton(noteDiv, bookId){
 function createNoteHeader(){
     const titleDiv = document.createElement("div");
     const pTag = document.createElement("p");
-    pTag.innerText = "Title"
+    pTag.innerText = "Title (note will be auto saved in 3 sec)"
     const  titleInput = document.createElement("input");
     titleInput.classList.add("note-title");
     titleInput.id = "note-title-input"

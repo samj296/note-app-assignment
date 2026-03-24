@@ -1,4 +1,7 @@
 // This file is for login and signup page only
+import {overlay} from "./infoFunction.js";
+
+overlay()
 
 const signUpbtn = document.getElementById("signup-btn");
 if(signUpbtn){

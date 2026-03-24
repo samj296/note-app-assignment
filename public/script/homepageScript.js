@@ -2,9 +2,11 @@
 // Which will act as controller and other module files are there for other tasks
 import {loadNotes, loadNoteById, updatingNote, creatingNewNote, deletingNote, creatingNewBook, loadBooks, deleteBook} from "./dataLoading.js"
 import {renderNoteTitle, renderNoteById, renderNewNote, renderAllBook, updateTimer} from "./rendering.js"
-
+import {overlay} from "./infoFunction.js"
 const bookDiv = document.getElementById("book-div");
 const noteDiv = document.getElementById("note-div");
+
+overlay();
 
 bookDiv.addEventListener("click", async (onlyButton) => {
     if(onlyButton.target.tagName === "BUTTON"){
