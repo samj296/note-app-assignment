@@ -68,7 +68,7 @@ mongoose
     .then(() => {
         console.log("Connected to MongoDB")
         app.listen(PORT, () => {
-            console.log(`App is running on http://10.0.0.120:${PORT}`);
+            console.log(`App is running on http://localhost:${PORT}`);
         });
     })
     .catch((err) => {

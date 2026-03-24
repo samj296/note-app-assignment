@@ -61,19 +61,19 @@ TwoNote is intentionally simple and focused. Here's how the core features behave
 * A user can create multiple books
 * Each book contain Note/Notes
 * A user can have unlimited books
-* Deleting a book is work in progress
+* A user can delete the book and the all the notes inside that book will be deleted
 
 ## Notes
 * A book can contain multiple notes
 * A note must have a title
 * A note can have an empty body
-* Notes are auto-saved after 5 seconds of inactivity
+* Notes are auto-saved after 3 seconds of inactivity
 * Editing happens live - no save button needed
 
 ## Deleting Notes
 TwoNotes uses a clean, intuitive delete flow:
 * To delete an existing note, simply clear the title
-* A 5 secound countdown begins
+* A 3 secound countdown begins
 * if the title stay empty, the note is deleted
 * If the user types again before the countdown ends, deletion is canceled
 * If the title is different from the original title after 5 secounds of inactivity title will be updated
@@ -87,58 +87,146 @@ this project uses event delegation heavily - especially in `homepageScript.js`
 This was my first time using event delegation properly, and it simplified the entire frontend.
 
 
-# API End point:
+# User Routes (`/users`)
 
-## Users:
-1) *Get* /users -list of all user (deprecated - listing all users is not needed)
-2) *Get* /users/:id -get single user by ID
-3) *Put* /users/:id -edit user
-4) *Post* /users/signup - Create user
-5) *Delete* /users/:id - work in progress
+## Public Routes
+<table>
+	<tr>
+		<th> Method </th>
+		<th> Endpoints </th>
+		<th> Description </th>
+	</tr>
+	<tr>
+		<td> GET </td>
+		<td> /users/signup </td>
+		<td> Renders signup page </td>
+	</tr>
+	<tr>
+		<td> POST </td>
+		<td> /users/signup </td>
+		<td> Create a new user </td>
+	</tr>
+	<tr>
+		<td> GET </td>
+		<td> /users/login </td>
+		<td> Render login page </td>
+	</tr>
+	<tr>
+		<td> POST </td>
+		<td> /users/login </td>
+		<td> Authenticate user and redirect to homepage </td>
+	</tr>	
+</table>
 
+## Protected Routes
+<table>
+	<tr>
+		<th> Method </th>
+		<th> Endpoints </th>
+		<th> Description </th>
+	</tr>
+	<tr>
+		<td> GET </td>
+		<td> /users/homepage </td>
+		<td> Render logged-in user's homepage </td>
+	</tr>
+	<tr>
+		<td> GET </td>
+		<td> /users/:id </td>
+		<td> Get a single user by ID (Work in progress) </td>
+	</tr>
+	<tr>
+		<td> PUT </td>
+		<td> /users/:id </td>
+		<td> Update user by ID (Work in progress) </td>
+	</tr>
+	<tr>
+		<td> Delete </td>
+		<td> /users/ </td>
+		<td> Delete the currently logged-in user (Work in progress) </td>
+	</tr>	
+</table>
 
+# Book Routes(`/books`)
 
+<table>
+	<tr>
+		<th> Method </th>
+		<th> Endpoints </th>
+		<th> Description </th>
+	</tr>
+	<tr>
+		<td> GET </td>
+		<td> /books/ </td>
+		<td> Get all books </td>
+	</tr>
+	<tr>
+		<td> GET </td>
+		<td> /books/:id </td>
+		<td> Get a single book by ID </td>
+	</tr>
+	<tr>
+		<td> POST </td>
+		<td> /books/ </td>
+		<td> Create a new book </td>
+	</tr>
+	<tr>
+		<td> PUT </td>
+		<td> /books/:id </td>
+		<td> Update a book by ID </td>
+	</tr>
+	<tr>
+		<td> DELETE </td>
+		<td> /books/:id </td>
+		<td> Delete a book and all notes inside it </td>
+	</tr>		
+</table>
 
-## Book
+# Note Routes (`/note`)
 
-1) *Get* /books/ -list all books
-2) *Get* /books/:id -get book by id
-3) *Post* /books/ -createbook
-4) *Put* /books/:id -update book
-5) *Delete* /books/:id -delete book
+## Notes by Book
 
-## Note:
-1) *Get*  /notes -list of all the notes
-	```json
-	{
-		"notes":
-		[
-			{
-				"id": 1,
-				"title": "Shopping List",
-				"body": ["Milk qty-2", "Yogurt qty -3"]
-			},
-			{
-				"id": 2,
-				"title": "to-do-list",
-				"body": ["Call Shalom - (P)", "work on my assignment - (C)" ]
-			}
-		]
-	}
-	```
-2) *Get* /note/:id get-note by id
-	```json
-		{
-			"id": 1,
-			"title": "Shopping List",
-			"body": ["Milk qty-2", "Yogurt qty -3"]
-		}
-	```
-3) *Put* /note/:id -edit note
-4) *Post* /note -add note
-5) *Delete* /note/:id -delete note
+<table>
+	<tr>
+		<th> Method </th>
+		<th> Endpoints </th>
+		<th> Description </th>
+	</tr>
+	<tr>
+		<td> GET </td>
+		<td> /notes/book/:bookid </td>
+		<td> Get all notes inside a specific book </td>
+	</tr>
+	
+</table>
 
+## Single Note
 
-
-
+<table>
+	<tr>
+		<th> Method </th>
+		<th> Endpoints </th>
+		<th> Description </th>
+	</tr>
+	<tr>
+		<td> GET </td>
+		<td> /notes/note/:id </td>
+		<td> Get a single note by ID </td>
+	</tr>
+	<tr>
+		<td> POST </td>
+		<td> /notes/note </td>
+		<td> Create a new note </td>
+	</tr>
+	<tr>
+		<td> PUT </td>
+		<td> /notes/note/:id </td>
+		<td> Update a note by ID </td>
+	</tr>
+	<tr>
+		<td> DELETE </td>
+		<td> /notes/note/:id </td>
+		<td> Delete a note by ID </td>
+	</tr>		
+</table>
 
