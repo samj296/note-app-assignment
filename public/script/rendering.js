@@ -99,6 +99,60 @@ async function renderNewNote(noteDiv,bookId){
     const {bodyDiv, bodyTextArea} = createNoteBody();
     bodyDiv.appendChild(bodyTextArea);
     noteDiv.appendChild(bodyDiv);
+};
+
+async function renderAllBook(books,bookDiv,noteDiv){
+    bookDiv.innerHTML = ""
+    noteDiv.innerHTML = ""
+
+
+    const div = document.createElement("div");
+    const input = document.createElement("input");
+    input.classList.add("create-book");
+    input.id = "book-input";
+    input.placeholder = "Add Book";
+    const button = document.createElement("button");
+    button.classList.add("btn", "btn-outline-light");
+    button.dataset.id = "create-book";
+    button.innerText = "Add Book";
+
+    const pHeader = document.createElement("p");
+    pHeader.innerText = "📚 Books";
+
+    div.appendChild(input);
+    div.appendChild(button)
+    bookDiv.appendChild(div);
+    bookDiv.appendChild(pHeader);
+    const ul = document.createElement("ul");
+    books.forEach(book => {
+        const li = document.createElement("li");
+        const bookBtn = document.createElement("button");
+        const delBtn = document.createElement("button");
+        bookBtn.classList.add("btn", "btn-outline-light");
+        bookBtn.type = "button";
+        bookBtn.dataset.id = book._id;
+        bookBtn.innerText = `📘 ${book.name}`;
+        delBtn.classList.add("btn", "btn-outline-light");
+        delBtn.type = "button";
+        delBtn.dataset.id = book._id;
+        delBtn.dataset.action = "delete";
+        delBtn.innerText = `❌`;
+        li.appendChild(bookBtn);
+        li.appendChild(delBtn);
+        ul.appendChild(li);
+    });
+
+    bookDiv.appendChild(ul);
+
+    const pTag = document.createElement("p");
+    pTag.innerText = "Select the book to view notes";
+    noteDiv.appendChild(pTag)
+};
+
+async function updateTimer(timer, method){
+    const pTag = document.getElementById("timer");
+    pTag.innerText = method + "in" + timer + "sec";
 }
 
-export {renderNoteTitle, renderNoteById, renderNewNote}
+
+export {renderNoteTitle, renderNoteById, renderNewNote, renderAllBook, updateTimer};

@@ -1,14 +1,16 @@
         <%- include("partials/header", {
             title: "Home - TwoNote",
             page: `Welcome ${username}`
-       }) %>
+       }) %>    
+                <p id = "timer"></p>
+
                 <div class = "main-container">
                     <div id = "book-div">
 
                         
                         <div>
-                            <input class = "create-book" id = "book-input">
-                            <button class = "btn btn btn-outline-light" data-id = "create-book">Add Book</button>
+                            <input class = "create-book" id = "book-input" placeholder= "Add Book">
+                            <button class = "btn btn-outline-light" data-id = "create-book">Add Book</button>
                         </div>
                         <p>📚 Books</p>
                         <ul>

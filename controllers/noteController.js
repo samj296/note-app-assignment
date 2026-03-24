@@ -87,7 +87,7 @@ exports.deleteNote = async (req, res) => {
             user,
             _id
         });
-        if (!deletedNote) return res.status(404).send("Note not found");
+        if (!deletedNote) return res.status(404).json({err: "Note not found"});
         res.status(200).json(deletedNote);
     }catch(err){
         console.log("Error deleting the Note", err);

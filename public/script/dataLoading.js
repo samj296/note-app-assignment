@@ -1,6 +1,9 @@
+import {ensureLoggedIn} from "./errorReq.js";
+
 async function loadNotes(bookId){
     try{
         const res = await fetch(`/notes/book/${bookId}`, {cache: "no-store"});
+        if(ensureLoggedIn(res)) return;
         const data = await res.json();
         return data.notes
     }catch(err){
@@ -11,6 +14,7 @@ async function loadNotes(bookId){
 async function loadNoteById(noteId){
     try{
         const res = await fetch(`/notes/note/${noteId}`, {cache: "no-store"});
+        if(ensureLoggedIn(res)) return;
         const note = await res.json();
         return note;
     }catch(err){
@@ -20,7 +24,7 @@ async function loadNoteById(noteId){
 
 async function updatingNote(note){
     try{
-        const updatedNote = await fetch(`/notes/note/${note.id}`,{
+        const res = await fetch(`/notes/note/${note.id}`,{
             method: "put",
             headers:{"Content-Type": "application/json"},
             body: JSON.stringify({
@@ -28,8 +32,8 @@ async function updatingNote(note){
                 body: note.body
             })
         });
-
-        const data = await updatedNote.json();
+        if(ensureLoggedIn(res)) return;
+        const data = await res.json();
         return data;
         
     }catch(err){
@@ -39,7 +43,7 @@ async function updatingNote(note){
 
 async function creatingNewNote(note){
     try{
-        const newNote = await fetch(`/notes/note`,{
+        const res = await fetch(`/notes/note`,{
             method: "post",
             headers:{"Content-Type": "application/json"},
             body: JSON.stringify({
@@ -49,37 +53,69 @@ async function creatingNewNote(note){
             })
             
         });
-        const data = await newNote.json();
+
+        if(ensureLoggedIn(res)) return;
+        const data = await res.json();
         return data;
     }catch(err){
         alert(`Error creating new note ${err}`);
     };
 };
 
-async function deletingNote(note){
+async function deletingNote(noteId){
     try{
-        const deleteNote = await fetch(`/notes/note/${note.id}`,{
+        const res = await fetch(`/notes/note/${noteId}`,{
             method: "delete"
         }); 
-    }catch(err){};
+        if(ensureLoggedIn(res)) return;
+        const data = await res.json();
+        return data;
+    }catch(err){
+        alert(`Error deleting note`);
+    };
 };
 
 async function creatingNewBook(book){
     try{
-        const newBook = await fetch(`/books`,{
+        const res = await fetch(`/books`,{
             method: "post",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
                 name: book,
             })
         });
-        const data = await newBook.json();
-        return data
+        if(ensureLoggedIn(res)) return;
+        const data = await res.json();
+        return data;
     }catch(err){
-        alert(`Error creating new book ${err}`)
+        alert(`Error creating new book ${err}`);
+    };
+};
+
+async function loadBooks(){
+    try{
+        const res = await fetch(`/books/`,{cache:"no-store"});
+        if(ensureLoggedIn(res)) return;
+        const data = await res.json();
+        return data;
+    }catch(err){
+        alert(`Error loading books ${err}`);
+    };
+};
+
+async function deleteBook(bookId){
+    try{
+        const res = await fetch(`/books/${bookId}`, {
+            method: "delete"
+        });
+
+        if(ensureLoggedIn(res)) return;
+        const data = await res.json();
+        return data;
+    }catch(err){
+        alert(`Error deleting book ${err}`)
     };
 };
 
 
-
-export {loadNotes, loadNoteById, updatingNote, creatingNewNote, deletingNote, creatingNewBook}
+export {loadNotes, loadNoteById, updatingNote, creatingNewNote, deletingNote, creatingNewBook, loadBooks, deleteBook}

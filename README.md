@@ -19,7 +19,7 @@ Every user can simply create an account and manage their own books and notes. Th
 	npm install
 ```
 
-3) Create a env file <br>
+3) Create a `.env` file <br>
 inside the project root: <br>
 for WSL/bash
 ```shell
