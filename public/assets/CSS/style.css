@@ -1,3 +1,5 @@
+/*-------Global Styling------------*/
+
 body{
     background-color: black;
     color: white;
@@ -23,6 +25,51 @@ body{
     justify-content: space-around;
 }
 
+.info{
+    position: fixed;
+    top:0;
+    right: 0;
+    padding: 2rem;
+    color: red;
+}
+
+.help-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.help-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.help-content {
+  background: white;
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  width: 60%;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.info-close{
+    color:red;
+}
+
+
+/*-----------Login page------------*/
+
 .login-form{
     clear: both;
     text-align: center;
@@ -31,6 +78,8 @@ body{
 .username-input, .password-input, .btn{
     margin: 5px;
 }
+
+/*----------home page-----------*/
 
 .main-container{
     display:flex;

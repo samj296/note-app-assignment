@@ -76,7 +76,7 @@ TwoNotes uses a clean, intuitive delete flow:
 * A 3 secound countdown begins
 * if the title stay empty, the note is deleted
 * If the user types again before the countdown ends, deletion is canceled
-* If the title is different from the original title after 5 secounds of inactivity title will be updated
+* If the title is different from the original title after 3 secounds of inactivity title will be updated
 
 # Special features - Event Delegation
 this project uses event delegation heavily - especially in `homepageScript.js`

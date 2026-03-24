@@ -23,6 +23,41 @@
             
             <div class = "header-bottom">
                 <h2 class = "page-title"> <%= page %></h2>
+                <p class = "info"> ℹ️ info</p>
+            </div>
+
+            <div class = "help-overlay">
+                <div class = "help-content">
+                    <h2>App Behavior ( How TwoNote Works)</h2>
+                    
+                        <p> TwoNote is intentionally simple and focused. Here's how the core features behave: </p>
+                            <p class = "info-close">click anywhere to close the panel</p>
+                            <br>
+                            
+                            <h3>Books</h3>
+                            
+                            <p>* A user can create multiple books</p>
+                            <p>* Each book contain Note/Notes</p>
+                            <p>* A user can have unlimited books</p>
+                            <p>* A user can delete the book and the all the notes inside that book will be deleted</p><br>
+                            
+                            <h3>Notes</h3>
+                            
+                            <p>* A book can contain multiple notes</p>
+                            <p>* A note must have a title</p>
+                            <p>* A note can have an empty body</p>
+                            <p>* Notes are auto-saved after 3 seconds of inactivity</p>
+                            <p>* Editing happens live - no save button needed</p>
+
+                            <h3>Deleting Notes</h3>
+                            <p>TwoNotes uses a clean, intuitive delete flow:</p>
+                            <p>* To delete an existing note, simply clear the title</p>
+                            <p>* A 3 secound countdown begins</p>
+                            <p>* if the title stay empty, the note is deleted</p>
+                            <p>* If the user types again before the countdown ends, deletion is canceled</p>
+                            <p>* If the title is different from the original title after 3 secounds of inactivity title will be updated</p>
+                
+                </div>
             </div>
             
         </header>
