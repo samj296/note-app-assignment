@@ -1,3 +1,5 @@
+const title3Sec = "note will be saved in 3 sec of inactivity";
+const titleSaved = "Note Saved"
 function createNoteButton(noteDiv, bookId){
     const createNote = document.createElement("Button");
     createNote.classList.add("btn", "btn-outline-light");
@@ -8,17 +10,23 @@ function createNoteButton(noteDiv, bookId){
     noteDiv.appendChild(createNote);
 };
 
+function updateTitleText(text){
+    const pTag = document.getElementById("title-text");
+    pTag.innerText = `Note-title (${text})`
+}
+
 function createNoteHeader(){
     const titleDiv = document.createElement("div");
     const pTag = document.createElement("p");
-    pTag.innerText = "Title (note will be auto saved in 3 sec)"
+    pTag.id = "title-text"
+    
+    
     const  titleInput = document.createElement("input");
     titleInput.classList.add("note-title");
     titleInput.id = "note-title-input"
     titleDiv.appendChild(pTag);
     const bodyHeader = document.createElement("p");
     bodyHeader.innerText = "BODY"
-
     return {titleDiv, titleInput, bodyHeader}
 };
 
@@ -71,6 +79,7 @@ async function renderNoteById(note, noteDiv, bookId){
     createNoteButton(noteDiv, bookId);
 
     const {titleDiv, titleInput, bodyHeader} = createNoteHeader();
+    
     titleInput.dataset.id = note._id;
     titleInput.dataset.bookid = bookId;
     titleInput.value = note.title;
@@ -84,6 +93,7 @@ async function renderNoteById(note, noteDiv, bookId){
 
     bodyDiv.appendChild(bodyTextArea);
     noteDiv.appendChild(bodyDiv);
+    updateTitleText("saved")
 };
 
 async function renderNewNote(noteDiv,bookId){
@@ -99,6 +109,7 @@ async function renderNewNote(noteDiv,bookId){
     const {bodyDiv, bodyTextArea} = createNoteBody();
     bodyDiv.appendChild(bodyTextArea);
     noteDiv.appendChild(bodyDiv);
+    updateTitleText("Note will be saved in 3 sec of inactivity")
 };
 
 async function renderAllBook(books,bookDiv,noteDiv){
@@ -149,10 +160,7 @@ async function renderAllBook(books,bookDiv,noteDiv){
     noteDiv.appendChild(pTag)
 };
 
-async function updateTimer(timer, method){
-    const pTag = document.getElementById("timer");
-    pTag.innerText = method + "in" + timer + "sec";
-}
 
 
-export {renderNoteTitle, renderNoteById, renderNewNote, renderAllBook, updateTimer};
+
+export {updateTitleText, renderNoteTitle, renderNoteById, renderNewNote, renderAllBook};

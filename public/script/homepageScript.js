@@ -1,7 +1,7 @@
 // This is the file that is linked to the homepage.ejs
 // Which will act as controller and other module files are there for other tasks
 import {loadNotes, loadNoteById, updatingNote, creatingNewNote, deletingNote, creatingNewBook, loadBooks, deleteBook} from "./dataLoading.js"
-import {renderNoteTitle, renderNoteById, renderNewNote, renderAllBook, updateTimer} from "./rendering.js"
+import {updateTitleText, renderNoteTitle, renderNoteById, renderNewNote, renderAllBook} from "./rendering.js"
 import {overlay} from "./infoFunction.js"
 const bookDiv = document.getElementById("book-div");
 const noteDiv = document.getElementById("note-div");
@@ -56,59 +56,80 @@ noteDiv.addEventListener("click", async (onlyButton) => {
     };
 });
 
-// Only update if the user stop typing for 5 sec
-// 1000 ms is 1 sec
-let typingTimer = null;
-const waitingTime = 3000; // 3 sec
-
-noteDiv.addEventListener("input", async (onlyText) => {    
-    //reseting the timmer, eventListener is firing when the user is typing
-    clearTimeout(typingTimer);
-    typingTimer = setTimeout(saveNote, waitingTime);
-    
-});
-
-let timer = 3;
 let countdownInterval = null;
+let waitTime = 3;
 
-function counter() {
-    updateTimer(timer, "save");
+noteDiv.addEventListener("input", (e) => {
+    if(e.target.id !== "note-title-input" && e.target.id !== "note-body-text-area" ){
+        // If the element is not note tile or the note body do nothing
+        return;
+    };
+    const titleInput = document.getElementById("note-title-input");
+    const bodyInput = document.getElementById("note-body-text-area");
+    const title = titleInput.value.trim();
+    const id = titleInput.dataset.id;
 
-    countdownInterval = setInterval(() => {
-        timer--;
-
-        if (timer <= 0) {
-            updateTimer(0, "save");
-            clearInterval(countdownInterval);
-            saveNote(); // or whatever you want to trigger
+    if(!title && id === "create-note"){
+        clearInterval(countdownInterval)
+        if(!bodyInput.value.trim()){
+            updateTitleText(`Add title to create note`)
             return;
         }
+        updateTitleText(`Add a title to save this note!`)
+        return;
+    };
 
-        updateTimer(timer, "save");
+    let method;
+    if(!title){
+        method = "Deleting";
+    }else{
+        method = "Save"
+    };
+    
+    clearInterval(countdownInterval);
+    waitTime = 3;
+    updateTitleText(`${method} in ${waitTime} sec`);
+    countdownInterval = setInterval(async () => {
+        waitTime--;
+        if (waitTime > 0) {
+            updateTitleText(`${method} in ${waitTime} sec`);
+        } else {
+            clearInterval(countdownInterval);
+            updateTitleText("Saving…");
+            await saveNote(titleInput);
+            updateTitleText("Saved");
+        }
     }, 1000);
-}
+});
 
 
-async function saveNote(){
-    const titleInput = document.getElementById("note-title-input");
+async function saveNote(titleInput){
+        
         const bodyTextArea = document.getElementById("note-body-text-area");
-        const id = titleInput.dataset.id;
+        let id = titleInput.dataset.id;
         const bookId = titleInput.dataset.bookid 
         const title = titleInput.value.trim();
         const body = bodyTextArea.value
         const note = {id, title,body, bookId};
-        if(!title && id !== "create-note"){
-            if(!window.confirm("Are you sure you want to delete this note")){
-                return
-            };
-            await deletingNote(note.id);
-            window.location.href = "/users/homepage";
 
+        if(!id) return;
+
+        if(!title && id !== "create-note"){
+            if(window.confirm("Are you sure you want to delete this note")){
+                await deletingNote(id);
+                window.location.href = "/users/homepage";
+            };
             return;
         };
+
         if(id === "create-note"){
-           await creatingNewNote(note);
+            
+            const newNote =  await creatingNewNote(note);
+            id = newNote._id;
+            note.id = id;
+            titleInput.dataset.id = id;
             return;
         };
         await updatingNote(note);
+        updateTitleText("saved")
 };

@@ -56,10 +56,15 @@ async function creatingNewNote(note){
 
         if(ensureLoggedIn(res)) return;
         const data = await res.json();
+
+        
         return data;
     }catch(err){
         alert(`Error creating new note ${err}`);
     };
+
+    
+        
 };
 
 async function deletingNote(noteId){
