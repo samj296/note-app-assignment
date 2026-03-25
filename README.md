@@ -78,7 +78,20 @@ TwoNotes uses a clean, intuitive delete flow:
 * If the user types again before the countdown ends, deletion is canceled
 * If the title is different from the original title after 3 secounds of inactivity title will be updated
 
-# Special features - Event Delegation
+# Special features 
+## ℹ️ Info Panel  
+This small panel sits on the top‑right corner of the app and provides quick tips to help users navigate TwoNote.
+
+**How it works:**  
+* **Desktop:** Hover over the panel to open it  
+* **Mobile & Tablet:** Tap the panel to open it  
+* **All devices:** Tap/click anywhere outside the panel to close it  
+
+<p align ="center">
+  <img src="./public/assets/images/info.jpg" alt="TwoNote top-right info panel" width="300">
+</p>
+
+## Event Delegation
 this project uses event delegation heavily - especially in `homepageScript.js`
 * Only one event listener is needed for all book buttons
 * Works even if you add 1 book or 10,000 books
@@ -230,3 +243,29 @@ This was my first time using event delegation properly, and it simplified the en
 	</tr>		
 </table>
 
+# Future Improvements & Plans
+
+TwoNote is fully functional, but several features are planned for future updates.  
+Due to time constraints, some profile‑related functionality is not yet implemented.
+
+##  User Account Features (Planned)
+* **Delete Account**  
+  A full account deletion flow that removes the user, their books, and all notes.
+* **Edit Profile**  
+  Allow users to update their username, email, and other personal details.
+* **Profile Details Page**  
+  A dedicated page showing user information, account stats, and settings.
+
+## Sharing & Collaboration (Planned)
+* **Share Books with Other Users**  
+  Users will be able to share a book with another registered user.
+* **Share Individual Notes**  
+  Notes can be shared independently, without sharing the entire book.
+* **Permission Levels**  
+  Options like *view‑only*, *edit*, or *comment* for shared content.
+
+## Additional Enhancements
+* Improved mobile UI for smoother navigation  
+* Dark mode toggle  
+* Search bar for quickly finding notes  
+* Drag‑and‑drop book or note ordering  
