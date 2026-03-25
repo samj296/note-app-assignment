@@ -96,15 +96,15 @@ noteDiv.addEventListener("input", (e) => {
         } else {
             clearInterval(countdownInterval);
             updateTitleText("Saving…");
-            await saveNote(titleInput);
+            await saveNote();
             updateTitleText("Saved");
         }
     }, 1000);
 });
 
 
-async function saveNote(titleInput){
-        
+async function saveNote(){
+        const titleInput = document.getElementById("note-title-input");
         const bodyTextArea = document.getElementById("note-body-text-area");
         let id = titleInput.dataset.id;
         const bookId = titleInput.dataset.bookid 
@@ -125,9 +125,9 @@ async function saveNote(titleInput){
         if(id === "create-note"){
             
             const newNote =  await creatingNewNote(note);
-            id = newNote._id;
-            note.id = id;
-            titleInput.dataset.id = id;
+            const freshNote = await loadNoteById(newNote.note._id);
+            const noteDiv = document.getElementById("note-div")
+            renderNoteById(freshNote, noteDiv, bookId);
             return;
         };
         await updatingNote(note);
