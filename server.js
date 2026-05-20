@@ -8,7 +8,7 @@ const passport = require("./auth/passport");
 const ensureLoggedIn = require("./middleware/ensureLoggedIn");
 const errorHandler = require("./middleware/errorHandler");
 const path = require("path");
-
+// This is to check render
 //importing all the routes here
 const noteRoute = require("./routes/noteRoute");
 const userRoute = require("./routes/userRoute");
