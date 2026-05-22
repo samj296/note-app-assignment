@@ -1,0 +1,43 @@
+#Name of GH Action
+name: CI Build and Test
+
+# this tells GH when to run the workflow
+# In this case its when someone pushes to main or opens a PR against main
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# This Job's name is "build and test"
+jobs:
+  build-and-test:
+  # The kind of computer we want to run the job on.
+    runs-on: ubuntu-latest
+
+# steps are the individual tasks in the job -- GH runs them in order from TOP to BOTTOM
+    steps:
+    # downloads our repo on to the runner
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+# This installs Node.js version 20 in the workflow environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          # this will speed up future runs
+          cache: npm
+
+      - name: Install dependencies
+      #creates a clean and predicable install for the dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+# Runs the build command for Vite Apps
+#     - name: Build project
+#      run: npm run build
